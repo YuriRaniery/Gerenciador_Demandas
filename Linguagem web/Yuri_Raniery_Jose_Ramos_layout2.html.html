@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Paradise - Rounded Edition</title>
+    <!-- Importando uma fonte arredondada premium do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif; /* Aplica a fonte arredondada em tudo */
+        }
+
+        body {
+            background-color: #4a1c1c; /* Vinho suave */
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Topo */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 6%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 400;
+            transition: 0.3s;
+        }
+
+        /* Layout Principal */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 8%;
+            min-height: 80vh;
+        }
+
+        .text-section {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .text-section h3 {
+            color: #ffcc00;
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .text-section h1 {
+            font-size: 50px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .text-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 480px;
+            opacity: 0.9;
+        }
+
+        /* Botões Redondos */
+        .btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 50px; /* Deixa o botão totalmente redondo/pílula */
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #ffcc00;
+            border-color: #ffcc00;
+            color: #4a1c1c;
+            transform: translateY(-3px); /* Leve efeito de flutuar ao passar o mouse */
+        }
+
+        /* Imagem Fundida com o Fundo */
+        .image-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .coffee-img {
+            max-width: 110%;
+            height: auto;
+            /* Efeito de máscara para sumir as bordas da imagem no vinho */
+            mask-image: radial-gradient(circle, black 40%, rgba(0, 0, 0, 0) 70%);
+            -webkit-mask-image: radial-gradient(circle, black 40%, rgba(0, 0, 0, 0) 70%);
+        }
+
+        /* Ajustes para Celular */
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; text-align: center; }
+            .text-section p { margin: 20px auto 40px; }
+            .btns { justify-content: center; }
+            .image-section { margin-top: 40px; }
+            .text-section h1 { font-size: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>☕</span> coffee
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">home</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">menu</a></li>
+                <li><a href="#">testimonials</a></li>
+                <li><a href="#">gallery</a></li>
+                <li><a href="#">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Lado Esquerdo -->
+        <div class="text-section">
+            <h3>Best Coffee</h3>
+            <h1>MAKE YOUR DAY GREAT WITH OUR SPECIAL COFFEE!</h1>
+            <p>Welcome to our coffee paradise where every bean tells a story and every cup sparks joy.</p>
+            
+            <div class="btns">
+                <a href="#" class="btn">Order Now</a>
+                <a href="#" class="btn">Contact Us</a>
+            </div>
+        </div>
+
+        <!-- Lado Direito -->
+        <div class="image-section">
+            <!-- Imagem com grãos e fundo escuro para melhor fusão -->
+            <img src="https://images.unsplash.com/photo-1506372023823-741c83b836fe?auto=format&fit=crop&q=80&w=800" 
+                 alt="Café com grãos" class="coffee-img">
+        </div>
+    </main>
+
+</body>
+</html>

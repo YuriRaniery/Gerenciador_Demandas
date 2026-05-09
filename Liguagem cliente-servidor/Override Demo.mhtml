@@ -1,0 +1,36 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: http://localhost:8080/
+Subject: Override Demo
+Date: Sun, 5 Apr 2026 21:25:05 -0300
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--6p2XSKzM4BMcACoHkVi87wGAqWprJyaKK0UjKdGYY9----"
+
+
+------MultipartBoundary--6p2XSKzM4BMcACoHkVi87wGAqWprJyaKK0UjKdGYY9----
+Content-Type: text/html
+Content-ID: <frame-36FF81EB9461068EA0292A560A985FC3@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://localhost:8080/
+
+<!DOCTYPE html><html><head><meta http-equiv=3D"Content-Type" content=3D"tex=
+t/html; charset=3DUTF-8">
+   =20
+    <title>Override Demo</title>
+</head>
+<body>
+
+<h2>Teste de Override com DevTools</h2>
+
+<button>Carregar Lista</button>
+<button>Login Correto</button>
+<button>Login Errado</button>
+
+
+
+
+<div>consolelog.com.br</div><div>conteudo-simulado.com.br</div><div>Token: =
+teste access token</div><div>Token: token-simulado-123</div><div>Token: tok=
+en-simulado-123</div></body></html>
+------MultipartBoundary--6p2XSKzM4BMcACoHkVi87wGAqWprJyaKK0UjKdGYY9------

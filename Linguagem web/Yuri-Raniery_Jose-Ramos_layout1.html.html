@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invotion - Bold & Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body, html {
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        /* Moldura Vermelha */
+        .frame {
+            height: 100vh;
+            border-left: 15px solid #d30000;
+            border-right: 15px solid #d30000;
+            border-top: 15px solid #d30000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Parte Superior (70%) - Gradiente Perolizado */
+        .upper-section {
+            height: 70%;
+            background: radial-gradient(circle at 30% 50%, #e63946, transparent 65%),
+                        radial-gradient(circle at 70% 50%, #6a0dad, transparent 65%),
+                        linear-gradient(135deg, #d30000, #4b0082);
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700; /* Mais grossa */
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500; /* Peso médio para os links */
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover { opacity: 0.8; }
+
+        /* Conteúdo Central */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        .content h1 {
+            font-size: 52px;
+            font-weight: 800; /* Texto grande e bem grosso */
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .content p {
+            font-size: 18px;
+            font-weight: 400; /* Texto de apoio com peso normal */
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        /* Botão Play Moderno */
+        .play-container {
+            width: 85px;
+            height: 85px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .play-container:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            border-left: 24px solid white;
+            margin-left: 6px;
+        }
+
+        /* Parte Inferior (30%) */
+        .lower-section {
+            height: 30%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expert-text {
+            font-size: 30px;
+            font-weight: 700; /* Texto inferior grosso */
+            color: #d30000;
+            letter-spacing: 2px;
+        }
+
+        .highlight {
+            color: black;
+            font-weight: 800; /* Destaque máximo em EXPERTS */
+            text-decoration: underline;
+            text-decoration-color: #d30000;
+            text-underline-offset: 10px;
+            padding: 0 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="frame">
+        
+        <section class="upper-section">
+            <header>
+                <div class="logo">INVOTION</div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Portifolis</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <div class="content">
+                <h1>The best solutions ready</h1>
+                <p>utilizamos as melhores ferramentas do mercado para a sua segurança e da sua empresa, venha conosco.</p>
+                
+                <div class="play-container">
+                    <div class="play-icon"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lower-section">
+            <h2 class="expert-text">
+                WE ARE <span class="highlight">EXPERTS</span> IN
+            </h2>
+        </section>
+
+    </div>
+
+</body>
+</html>
