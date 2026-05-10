@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "demandas")
-public class Demand {
+public class Tasks {
     @Column(nullable = false)
     private String title;
     private String description;

@@ -1,6 +1,6 @@
 package com.feras.Gerenciador_Demandas.role;
 
-public enum DemandRole {
+public enum TaskRole {
     PENDENTE,
     EM_ANDAMENTO,
     CONCLUIDA

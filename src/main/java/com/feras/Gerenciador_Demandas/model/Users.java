@@ -13,7 +13,7 @@ public class Users {
     private String name;
 
     @Column(unique = true, nullable = false)
-    private String number;
+    private String email;
 
     @Column(nullable = false)
     private String dateOfBirth;
