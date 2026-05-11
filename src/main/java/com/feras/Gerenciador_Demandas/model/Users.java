@@ -1,21 +1,27 @@
 package com.feras.Gerenciador_Demandas.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "usuarios")
 public class Users {
 
-    private String name;
 
-    @Column(unique = true, nullable = false)
+
+    @Id
     private String email;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String dateOfBirth;
+
+    @OneToMany(mappedBy = "user")
+    private List<Tasks> tasks;
 
 }
