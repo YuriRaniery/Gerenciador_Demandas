@@ -29,11 +29,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# Variáveis de ambiente
+.env
+
+# Arquivos gerados pelo Spring/Maven
+target/
+
+# IDEs
+.idea/
+*.iml
 .vscode/
-
-### Banco de dados ###
-*.db
-*.postgresql
-
-src/main/resources/application-prod.properties
