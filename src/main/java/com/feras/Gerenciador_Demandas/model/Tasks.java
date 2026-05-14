@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -31,4 +32,12 @@ public class Tasks {
     @ManyToOne
     @JoinColumn(name = "usuario_email")
     private Users user;
+
+    @ManyToMany
+    @JoinTable(
+            name = "task_tags",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
 }
