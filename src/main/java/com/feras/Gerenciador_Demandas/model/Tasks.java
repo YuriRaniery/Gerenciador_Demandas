@@ -40,4 +40,12 @@ public class Tasks {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tags;
+
+    public Tasks(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+    public Tasks() {}
+
+
 }

@@ -1,12 +1,13 @@
 package com.feras.Gerenciador_Demandas.repository;
 
-import com.feras.Gerenciador_Demandas.model.Users;
+import com.feras.Gerenciador_Demandas.model.Tasks;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.config.Task;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
-    Optional<Users> findByTitle(String title);
+public interface TaskRepository extends JpaRepository<Tasks, Long> {
+    List<Tasks> findByRole(Tasks role);
+    List<Tasks> findById(Tasks id);
+
 
 }
