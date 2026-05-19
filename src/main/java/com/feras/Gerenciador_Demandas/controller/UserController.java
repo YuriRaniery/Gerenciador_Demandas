@@ -15,7 +15,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/casdastrar")
+    @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody Users usuario) {
         userService.cadastrar(usuario);
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");
