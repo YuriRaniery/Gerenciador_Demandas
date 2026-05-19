@@ -27,9 +27,6 @@ public class Users implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Tasks> tasks;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private java.time.LocalDate dateOfBirth;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
