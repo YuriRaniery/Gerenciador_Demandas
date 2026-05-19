@@ -24,6 +24,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users login) {
         userService.login(login);
-        return ResponseEntity.ok("Usuario logado com sucesso!");
+        return ResponseEntity.ok("Usuário logado com sucesso!");
     }
 }
