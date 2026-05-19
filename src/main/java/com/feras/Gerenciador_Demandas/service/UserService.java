@@ -30,4 +30,19 @@ public class UserService implements UserDetailsService {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return userRepository.save(usuario);
     }
+
+    // Login de usuario
+    public Users login(Users login) {
+        Users usuario = userRepository.findByEmail(login.getEmail())
+               .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "E-mail ou senha inválidos"));
+
+        if(!passwordEncoder.matches(login.getPassword(), usuario.getPassword())) {
+            throw new UserException(HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos");
+        }
+
+        return usuario;
+
+
+    }
 }
+
