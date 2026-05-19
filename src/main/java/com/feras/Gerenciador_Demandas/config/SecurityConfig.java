@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -27,9 +28,7 @@ public class SecurityConfig {
 
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/usuarios/cadastrar").permitAll()
 
-                        .requestMatchers("/usuarios/**").permitAll()
-
-
+                        
                         .anyRequest().authenticated()
                 );
 
