@@ -39,9 +39,8 @@ public class UserService implements UserDetailsService {
         if(!passwordEncoder.matches(login.getPassword(), usuario.getPassword())) {
             throw new UserException(HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos");
         }
-
+        
         return usuario;
-
 
     }
 }

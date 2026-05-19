@@ -2,14 +2,17 @@ package com.feras.Gerenciador_Demandas.model;
 
 import com.feras.Gerenciador_Demandas.role.TaskRole;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "demandas")
 public class Tasks {

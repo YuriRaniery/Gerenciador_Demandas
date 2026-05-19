@@ -20,4 +20,10 @@ public class UserController {
         userService.cadastrar(usuario);
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Users login) {
+        userService.login(login);
+        return ResponseEntity.ok("Usuario logado com sucesso!");
+    }
 }
