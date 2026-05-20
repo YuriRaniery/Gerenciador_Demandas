@@ -33,15 +33,43 @@ public class UserService implements UserDetailsService {
 
     // Login de usuario
     public Users login(Users login) {
-        Users usuario = userRepository.findByEmail(login.getEmail())
+        Users loginUser = userRepository.findByEmail(login.getEmail())
                .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "E-mail ou senha inválidos"));
 
-        if(!passwordEncoder.matches(login.getPassword(), usuario.getPassword())) {
+        if(!passwordEncoder.matches(login.getPassword(), loginUser.getPassword())) {
             throw new UserException(HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos");
         }
         
-        return usuario;
+        return loginUser;
 
+    }
+
+    public Users atualizar(String email, Users user) {
+        Users atualizarUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        atualizarUser.setName(user.getName());
+        atualizarUser.setEmail(user.getEmail());
+
+        return userRepository.save(atualizarUser);
+    }
+
+    public Users deletar(String email) {
+        Users deletar = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        userRepository.delete(deletar);
+
+        return deletar;
+    }
+
+    public Users alterarSenha(String email, Users usuario) {
+        Users alterar = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        alterar.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
+        return userRepository.save(alterar);
     }
 }
 

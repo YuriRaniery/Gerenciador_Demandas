@@ -25,11 +25,7 @@ public class SecurityConfig {
 
 
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/usuarios/cadastrar").permitAll()
-
-                        
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
