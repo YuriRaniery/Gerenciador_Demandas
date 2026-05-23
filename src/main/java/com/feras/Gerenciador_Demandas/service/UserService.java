@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
         if(!passwordEncoder.matches(login.getPassword(), loginUser.getPassword())) {
             throw new UserException(HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos");
         }
-        
+
         return loginUser;
 
     }
@@ -72,4 +72,3 @@ public class UserService implements UserDetailsService {
         return userRepository.save(alterar);
     }
 }
-
