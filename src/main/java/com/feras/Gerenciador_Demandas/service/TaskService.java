@@ -32,7 +32,7 @@ public class TaskService {
     }
 
     @Transactional
-    public Tasks atualizar(TaskRequestDTO req){
+    public Tasks atualizar(Long id, TaskRequestDTO req){
         if (req.getId() == null) {
             // Mantive a sua UserException aqui pois é um erro de validação (Bad Request 400), e não um "Não Encontrado" (404)
             throw new UserException(HttpStatus.BAD_REQUEST, "O ID da task é obrigatório para atualização");

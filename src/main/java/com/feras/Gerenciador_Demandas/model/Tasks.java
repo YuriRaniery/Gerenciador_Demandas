@@ -2,8 +2,7 @@ package com.feras.Gerenciador_Demandas.model;
 
 import com.feras.Gerenciador_Demandas.role.TaskRole;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,8 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "demandas")
 public class Tasks {
@@ -44,11 +42,6 @@ public class Tasks {
     )
     private List<Tag> tags;
 
-    public Tasks(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-    public Tasks() {}
 
 
 }
