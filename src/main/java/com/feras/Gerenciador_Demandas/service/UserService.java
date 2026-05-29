@@ -18,6 +18,12 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+    public Users listarUsers(Users user) {
+        user.getName();
+        user.getEmail();
+        return user;
+    }
     // Spring chama esse método automaticamente no login
     @Override
     public UserDetails loadUserByUsername(String email) throws UserException {

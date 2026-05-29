@@ -14,6 +14,12 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/listarUser")
+    public ResponseEntity<String> listar(@RequestBody Users user) {
+        userService.listarUsers(user);
+        return ResponseEntity.ok().body("Lista de usuários: " + userService.listarUsers(user).toString());
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody Users cadastro) {
         userService.cadastrar(cadastro);

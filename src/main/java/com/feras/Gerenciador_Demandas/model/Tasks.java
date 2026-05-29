@@ -28,7 +28,8 @@ public class Tasks {
     private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
-    private TaskRole role;
+    @Column(nullable = false)
+    private TaskRole status;
 
     @ManyToOne
     @JoinColumn(name = "usuario_email")
@@ -42,6 +43,11 @@ public class Tasks {
     )
     private List<Tag> tags;
 
+    @PrePersist
+    public void prePersist() {
+        this.status = TaskRole.PENDENTE; // ← sempre PENDENTE ao criar
+        this.date = LocalDateTime.now();
+    }
 
 
 }
