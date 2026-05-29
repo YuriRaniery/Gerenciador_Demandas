@@ -1,7 +1,9 @@
 package com.feras.Gerenciador_Demandas.controller;
 
+import com.feras.Gerenciador_Demandas.dto.UserRequestDTO;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,11 @@ public class UserController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody Users cadastro) {
-        userService.cadastrar(cadastro);
+    public ResponseEntity<String> cadastrar(@Valid @RequestBody UserRequestDTO dto) {
+        userService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users login) {

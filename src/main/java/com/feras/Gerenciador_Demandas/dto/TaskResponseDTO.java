@@ -25,6 +25,9 @@ public class TaskResponseDTO {
         this.emailUsuario = emailUsuario;
     }
 
+    public TaskResponseDTO(String title, String description, String email) {
+    }
+
     @Override
     public String toString() {
         return "id: " + id +
