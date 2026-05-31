@@ -34,6 +34,7 @@ public class TaskService {
         Users user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o email: " + email));
         Tasks task = new Tasks();
+        task.setStatus(TaskRole.PENDENTE);
         task.setTitle(req.getTitle());
         task.setDescription(req.getDescription());
         task.setUser(user);

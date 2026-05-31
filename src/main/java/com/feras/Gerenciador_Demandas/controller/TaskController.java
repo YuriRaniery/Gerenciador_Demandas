@@ -25,8 +25,16 @@ public class TaskController {
     public ResponseEntity<Page<TaskResponseDTO>> listarTodos(Pageable pageable){
         Page<Tasks> tasks = taskService.listarTodos(pageable);
 
-        Page<TaskResponseDTO> dtos = tasks.map(t -> new TaskResponseDTO(t.getTitle(), t.getDescription(), t.getUser().getEmail()));
-        return ResponseEntity.ok().body(dtos);
+        Page<TaskResponseDTO> dtos = tasks.map(t -> {
+            TaskResponseDTO dto = new TaskResponseDTO();
+            dto.setId(t.getId());
+            dto.setTitulo(t.getTitle());
+            dto.setDescricao(t.getDescription());
+            dto.setStatus(t.getStatus().name());
+            dto.setEmailUsuario(t.getUser() != null ? t.getUser().getEmail() : null);
+            dto.setCriadoEm(t.getDate());
+            return dto;
+        });        return ResponseEntity.ok().body(dtos);
     }
 
     @PostMapping("/criar/{email}")

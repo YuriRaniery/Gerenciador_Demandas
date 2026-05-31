@@ -31,7 +31,6 @@ build/
 
 # Variáveis de ambiente
 .env
-aplication-prod.properties
 
 # Arquivos gerados pelo Spring/Maven
 target/

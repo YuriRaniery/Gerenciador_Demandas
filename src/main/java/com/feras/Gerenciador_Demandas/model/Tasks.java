@@ -24,7 +24,6 @@ public class Tasks {
 
     private String description;
 
-    @CreationTimestamp
     private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
@@ -45,7 +44,7 @@ public class Tasks {
 
     @PrePersist
     public void prePersist() {
-        this.status = TaskRole.PENDENTE; // ← sempre PENDENTE ao criar
+        this.status = TaskRole.PENDENTE;
         this.date = LocalDateTime.now();
     }
 
