@@ -1,5 +1,6 @@
 package com.feras.Gerenciador_Demandas.service;
 
+import com.feras.Gerenciador_Demandas.dto.UserRequestDTO;
 import com.feras.Gerenciador_Demandas.exception.UserException;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.repository.UserRepository;
@@ -32,10 +33,14 @@ public class UserService implements UserDetailsService {
     }
 
     // Cadastro de novo usuário
-    public Users cadastrar(Users usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+    public Users cadastrar(UserRequestDTO dto) {
+        Users usuario = new Users();
+        usuario.setEmail(dto.getEmail());
+        usuario.setName(dto.getNome());
+        usuario.setPassword(passwordEncoder.encode(dto.getSenha()));
         return userRepository.save(usuario);
     }
+
 
     // Login de usuario
     public Users login(Users login) {
