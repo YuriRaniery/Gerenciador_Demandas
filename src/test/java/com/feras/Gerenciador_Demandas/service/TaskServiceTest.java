@@ -22,10 +22,10 @@ import static org.mockito.ArgumentMatchers.any;
 public class TaskServiceTest {
 
     @Mock
-    private TaskRepository tasksRepository; // Nome exato do seu atributo na Service
+    private TaskRepository tasksRepository;
 
     @Mock
-    private UserRepository userRepository; // Adicionado porque a Service busca o usuário antes de criar a Task
+    private UserRepository userRepository;
 
     @InjectMocks
     private TaskService taskService;

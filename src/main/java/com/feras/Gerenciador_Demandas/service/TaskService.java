@@ -49,7 +49,7 @@ public class TaskService {
         }
 
         Tasks tasksExistente = tasksRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrada com o ID: " + req.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Task não encontrada com o ID: " + id));
 
         tasksExistente.setTitle(req.getTitle());
         tasksExistente.setDescription(req.getDescription());
