@@ -23,28 +23,6 @@ Para compilar, executar e testar a aplicação, certifique-se de possuir:
 
 ---
 
-## 🛠️ Variáveis de Ambiente (`.env`)
-
-A aplicação utiliza variáveis de ambiente para configuração.
-
-Exemplo:
-
-```properties
-# CONFIGURAÇÕES DA APLICAÇÃO
-SPRING_APPLICATION_NAME=Gerenciador_Demandas
-SERVER_PORT=8080
-
-# BANCO DE DADOS
-DB_URL=jdbc:postgresql://localhost:5432/gerenciador_demandas
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-
-# DOCUMENTAÇÃO
-SWAGGER_ENABLED=true
-```
-
----
-
 ## ⚙️ Como Executar a Aplicação
 
 A aplicação possui suporte a múltiplos perfis de configuração.
