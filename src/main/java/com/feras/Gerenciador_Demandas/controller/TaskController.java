@@ -5,16 +5,19 @@ import com.feras.Gerenciador_Demandas.dto.TaskResponseDTO;
 import com.feras.Gerenciador_Demandas.model.Tasks;
 import com.feras.Gerenciador_Demandas.service.TaskService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/task")
 @RequiredArgsConstructor
+@Validated
 public class TaskController {
     private final TaskService taskService;
 
@@ -35,7 +38,7 @@ public class TaskController {
     }
 
     @PostMapping("/criar/{email}")
-    public ResponseEntity<String> criar(@PathVariable String email, @Valid @RequestBody TaskRequestDTO taskRequestDTO) {
+    public ResponseEntity<String> criar(@PathVariable @Email(message = "inválido") String email,  @Valid @RequestBody TaskRequestDTO taskRequestDTO) {
         taskService.criar(email, taskRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("taskCriada");
     }

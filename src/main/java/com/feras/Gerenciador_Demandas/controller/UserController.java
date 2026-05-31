@@ -21,7 +21,7 @@ public class UserController {
 
     @Operation(summary = "Listar usuários")
     @GetMapping("/listarUser")
-    public ResponseEntity<String> listar(@RequestBody Users user) {
+    public ResponseEntity<String> listar(Users user) {
         userService.listarUsers(user);
         return ResponseEntity.ok().body("Lista de usuários: " + userService.listarUsers(user).toString());
     }

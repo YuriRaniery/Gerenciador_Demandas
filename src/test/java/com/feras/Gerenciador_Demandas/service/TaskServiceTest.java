@@ -1,28 +1,35 @@
 package com.feras.Gerenciador_Demandas.service;
 
 import com.feras.Gerenciador_Demandas.dto.TaskRequestDTO;
+import com.feras.Gerenciador_Demandas.exception.ResourceNotFoundException;
+import com.feras.Gerenciador_Demandas.exception.UserException;
 import com.feras.Gerenciador_Demandas.model.Tasks;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.repository.TaskRepository;
 import com.feras.Gerenciador_Demandas.repository.UserRepository;
-import org.junit.jupiter.api.DisplayName;
+import com.feras.Gerenciador_Demandas.role.TaskRole;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TaskServiceTest {
+class TaskServiceTest {
 
     @Mock
-    private TaskRepository tasksRepository;
+    private TaskRepository taskRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -30,39 +37,157 @@ public class TaskServiceTest {
     @InjectMocks
     private TaskService taskService;
 
+    private Users usuario;
+    private Tasks task;
+    private TaskRequestDTO dto;
+
+    @BeforeEach
+    void setUp() {
+        usuario = new Users();
+        usuario.setEmail("jose@gmail.com");
+        usuario.setName("José");
+        usuario.setPassword("senha123");
+
+        task = new Tasks();
+        task.setId(1L);
+        task.setTitle("Minha tarefa");
+        task.setDescription("Descrição da tarefa");
+        task.setStatus(TaskRole.PENDENTE);
+        task.setUser(usuario);
+
+        dto = new TaskRequestDTO();
+        dto.setTitle("Minha tarefa");
+        dto.setDescription("Descrição da tarefa");
+    }
+
+    // ─── listarTodos ────────────────────────────────────────────────────────────
+
     @Test
-    @DisplayName("Deve criar uma task com sucesso quando os dados forem válidos")
-    void criarTask_DeveRetornarTaskSalva_QuandoDadosValidos() {
-        // 1. Arrange (Cenário de teste)
-        String emailMock = "usuario@email.com";
+    void deveListarTodasAsTarefasComPaginacao() {
+        PageRequest pageable = PageRequest.of(0, 10);
+        Page<Tasks> page = new PageImpl<>(List.of(task));
 
-        // Criando o DTO que o método 'criar' exige como segundo parâmetro
-        TaskRequestDTO dtoFake = new TaskRequestDTO();
-        dtoFake.setTitle("Estudar Testes");
-        dtoFake.setDescription("Descrição da atividade");
+        when(taskRepository.findAll(pageable)).thenReturn(page);
 
-        // Criando o Usuário fictício que o UserRepository deve retornar
-        Users usuarioFake = new Users();
-        usuarioFake.setEmail(emailMock);
+        Page<Tasks> resultado = taskService.listarTodos(pageable);
 
-        // Criando a Task fictícia que o seu repository vai retornar ao final
-        Tasks taskFake = new Tasks();
-        taskFake.setTitle(dtoFake.getTitle());
-        taskFake.setDescription(dtoFake.getDescription());
-        taskFake.setUser(usuarioFake);
+        assertNotNull(resultado);
+        assertEquals(1, resultado.getTotalElements());
+        verify(taskRepository, times(1)).findAll(pageable);
+    }
 
-        // Configurando os comportamentos dos Mocks (Simulações)
-        Mockito.when(userRepository.findByEmail(emailMock)).thenReturn(Optional.of(usuarioFake));
-        Mockito.when(tasksRepository.save(any(Tasks.class))).thenReturn(taskFake);
+    // ─── criar ──────────────────────────────────────────────────────────────────
 
-        // 2. Act (Ação) - Chamando o método real com os 2 argumentos corretos!
-        Tasks taskResultado = taskService.criar(emailMock, dtoFake);
+    @Test
+    void deveCriarTaskComSucesso() {
+        when(userRepository.findByEmail("jose@gmail.com")).thenReturn(Optional.of(usuario));
+        when(taskRepository.save(any(Tasks.class))).thenReturn(task);
 
-        // 3. Assert (Verificações)
-        assertNotNull(taskResultado);
-        assertEquals("Estudar Testes", taskResultado.getTitle());
+        Tasks resultado = taskService.criar("jose@gmail.com", dto);
 
-        Mockito.verify(userRepository, Mockito.times(1)).findByEmail(emailMock);
-        Mockito.verify(tasksRepository, Mockito.times(1)).save(any(Tasks.class));
+        assertNotNull(resultado);
+        assertEquals("Minha tarefa", resultado.getTitle());
+        assertEquals(usuario, resultado.getUser());
+        verify(taskRepository, times(1)).save(any(Tasks.class));
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoUsuarioNaoEncontradoAoCriar() {
+        when(userRepository.findByEmail("naocadastrado@gmail.com")).thenReturn(Optional.empty());
+
+        ResourceNotFoundException ex = assertThrows(
+                ResourceNotFoundException.class,
+                () -> taskService.criar("naocadastrado@gmail.com", dto)
+        );
+
+        assertTrue(ex.getMessage().contains("naocadastrado@gmail.com"));
+        verify(taskRepository, never()).save(any());
+    }
+
+    // ─── atualizar ──────────────────────────────────────────────────────────────
+
+    @Test
+    void deveAtualizarTaskComSucesso() {
+        dto.setTitle("Titulo atualizado");
+        dto.setDescription("Descrição atualizada");
+
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        when(taskRepository.save(any(Tasks.class))).thenReturn(task);
+
+        Tasks resultado = taskService.atualizar(1L, dto);
+
+        assertNotNull(resultado);
+        assertEquals("Titulo atualizado", resultado.getTitle());
+        verify(taskRepository, times(1)).save(any(Tasks.class));
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoTaskNaoEncontradaAoAtualizar() {
+        when(taskRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> taskService.atualizar(99L, dto)
+        );
+
+        verify(taskRepository, never()).save(any());
+    }
+
+    @Test
+    void deveLancarUserExceptionQuandoIdNuloAoAtualizar() {
+        UserException ex = assertThrows(
+                UserException.class,
+                () -> taskService.atualizar(null, dto)
+        );
+
+        assertEquals("O ID da task é obrigatório para atualização", ex.getMessage());
+        verify(taskRepository, never()).findById(any());
+    }
+
+    // ─── alterRoleTask ──────────────────────────────────────────────────────────
+
+    @Test
+    void deveAlterarStatusDaTaskComSucesso() {
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        when(taskRepository.save(any(Tasks.class))).thenReturn(task);
+
+        Tasks resultado = taskService.alterRoleTask(1L, TaskRole.EM_ANDAMENTO);
+
+        assertEquals(TaskRole.EM_ANDAMENTO, resultado.getStatus());
+        verify(taskRepository, times(1)).save(task);
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoTaskNaoEncontradaAoAlterarStatus() {
+        when(taskRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> taskService.alterRoleTask(99L, TaskRole.CONCLUIDA)
+        );
+    }
+
+    // ─── deletar ────────────────────────────────────────────────────────────────
+
+    @Test
+    void deveDeletarTaskComSucesso() {
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        doNothing().when(taskRepository).delete(task);
+
+        assertDoesNotThrow(() -> taskService.deletar(1L));
+
+        verify(taskRepository, times(1)).delete(task);
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoTaskNaoEncontradaAoDeletar() {
+        when(taskRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> taskService.deletar(99L)
+        );
+
+        verify(taskRepository, never()).delete(any());
     }
 }
