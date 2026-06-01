@@ -3,9 +3,12 @@ package com.feras.Gerenciador_Demandas.service;
 import com.feras.Gerenciador_Demandas.dto.UserRequestDTO;
 import com.feras.Gerenciador_Demandas.dto.UserResponseDTO;
 import com.feras.Gerenciador_Demandas.exception.UserException;
+import com.feras.Gerenciador_Demandas.model.Tasks;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +32,15 @@ public class UserService implements UserDetailsService {
                 .map(UserResponseDTO::from)
                 .toList();
     }
+
+    public List<UserResponseDTO> listarUserId(String email) {
+        return userRepository.findByEmail(email)
+                .stream()
+                .map(UserResponseDTO::from)
+                .toList();
+    }
+
+
     // Spring chama esse método automaticamente no login
     @Override
     public UserDetails loadUserByUsername(String email) throws UserException {

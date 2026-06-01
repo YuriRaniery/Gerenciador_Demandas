@@ -1,13 +1,17 @@
 package com.feras.Gerenciador_Demandas.controller;
 
+import com.feras.Gerenciador_Demandas.dto.TaskResponseDTO;
 import com.feras.Gerenciador_Demandas.dto.UserRequestDTO;
 import com.feras.Gerenciador_Demandas.dto.UserResponseDTO;
+import com.feras.Gerenciador_Demandas.model.Tasks;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +31,12 @@ public class UserController {
     @GetMapping("/listarUsers")
     public ResponseEntity<List<UserResponseDTO>> listar() {
         return ResponseEntity.ok(userService.listarUsers());
+    }
+
+    @Operation(summary = "Listar tasks por email do usuário")
+    @GetMapping("/listarEmail/{email}")
+    public ResponseEntity<List<UserResponseDTO>> listarUser(@PathVariable String email) {
+        return ResponseEntity.ok(userService.listarUserId(email));
     }
 
     @Operation(summary = "Cadastrar novo usuário")
