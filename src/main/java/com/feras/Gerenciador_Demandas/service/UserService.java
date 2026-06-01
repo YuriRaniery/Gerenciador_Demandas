@@ -1,6 +1,7 @@
 package com.feras.Gerenciador_Demandas.service;
 
 import com.feras.Gerenciador_Demandas.dto.UserRequestDTO;
+import com.feras.Gerenciador_Demandas.dto.UserResponseDTO;
 import com.feras.Gerenciador_Demandas.exception.UserException;
 import com.feras.Gerenciador_Demandas.model.Users;
 import com.feras.Gerenciador_Demandas.repository.UserRepository;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +23,11 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public Users listarUsers(Users user) {
-        user.getName();
-        user.getEmail();
-        return user;
+    public List<UserResponseDTO> listarUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserResponseDTO::from)
+                .toList();
     }
     // Spring chama esse método automaticamente no login
     @Override
@@ -35,9 +39,9 @@ public class UserService implements UserDetailsService {
     // Cadastro de novo usuário
     public Users cadastrar(UserRequestDTO dto) {
         Users usuario = new Users();
+        usuario.setName(dto.getName());
         usuario.setEmail(dto.getEmail());
-        usuario.setName(dto.getNome());
-        usuario.setPassword(passwordEncoder.encode(dto.getSenha()));
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         return userRepository.save(usuario);
     }
 
@@ -60,8 +64,6 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UserException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
         atualizarUser.setName(user.getName());
-        atualizarUser.setEmail(user.getEmail());
-
         return userRepository.save(atualizarUser);
     }
 

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TaskRequestDTO {
 
+
     @validTitulo
     @NotBlank(message = "O titulo é obrigatório")
     @Size(min = 5, max = 100, message = "O titulo deve conter entre 5 e 100 caracteres")

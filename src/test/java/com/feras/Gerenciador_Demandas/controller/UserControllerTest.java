@@ -55,9 +55,9 @@ class UserControllerTest {
     @Test
     void deveCadastrarUsuarioComSucesso() throws Exception {
         UserRequestDTO dto = new UserRequestDTO();
-        dto.setNome("José");
+        dto.setName("José");
         dto.setEmail("jose@gmail.com");
-        dto.setSenha("senha123");
+        dto.setPassword("senha123");
 
         Mockito.when(userService.cadastrar(any(UserRequestDTO.class))).thenReturn(usuario);
 

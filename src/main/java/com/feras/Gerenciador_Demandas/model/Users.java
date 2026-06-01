@@ -13,8 +13,6 @@ import java.util.List;
 @Table(name = "usuarios")
 public class Users implements UserDetails {
 
-
-
     @Id
     private String email;
 

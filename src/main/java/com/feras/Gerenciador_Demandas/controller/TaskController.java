@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Validated
 public class TaskController {
+
     private final TaskService taskService;
 
     @GetMapping("/listar")
@@ -34,24 +35,28 @@ public class TaskController {
             dto.setEmailUsuario(t.getUser() != null ? t.getUser().getEmail() : null);
             dto.setCriadoEm(t.getDate());
             return dto;
-        });        return ResponseEntity.ok().body(dtos);
+        });
+        return ResponseEntity.ok().body(dtos);
     }
 
     @PostMapping("/criar/{email}")
     public ResponseEntity<String> criar(@PathVariable @Email(message = "inválido") String email,  @Valid @RequestBody TaskRequestDTO taskRequestDTO) {
-        taskService.criar(email, taskRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("taskCriada");
+        // 2. O service precisa devolver a Task salva no banco para termos o ID gerado!
+        Tasks taskCriada = taskService.criar(email, taskRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("A task de id: " + taskCriada.getId() + " foi criada com sucesso!");
     }
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> atualizar(@PathVariable Long id, @Valid @RequestBody TaskRequestDTO taskRequestDTO) {
         taskService.atualizar(id, taskRequestDTO);
-        return ResponseEntity.ok("taskAtualizada");
+        // 3. Usamos a variável 'id' que já veio da URL!
+        return ResponseEntity.ok("A task de id: " + id + " foi atualizada com sucesso!");
     }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletar(@PathVariable Long id){
         taskService.deletar(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deletado com sucesso!");
+        // 4. Usamos a variável 'id' que já veio da URL!
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("A task de id: " + id + " foi deletada com sucesso!");
     }
 }

@@ -48,8 +48,8 @@ class UserServiceTest {
     void deveCadastrarUsuarioComSucesso() {
         UserRequestDTO dto = new UserRequestDTO();
         dto.setEmail("jose@gmail.com");
-        dto.setNome("José");
-        dto.setSenha("senha123");
+        dto.setName("José");
+        dto.setPassword("senha123");
 
         when(passwordEncoder.encode(anyString())).thenReturn("senhaCriptografada");
         when(userRepository.save(any(Users.class))).thenReturn(usuario);

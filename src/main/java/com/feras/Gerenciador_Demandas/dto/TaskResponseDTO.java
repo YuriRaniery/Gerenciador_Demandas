@@ -1,6 +1,5 @@
 package com.feras.Gerenciador_Demandas.dto;
 
-import com.feras.Gerenciador_Demandas.model.Tasks;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;

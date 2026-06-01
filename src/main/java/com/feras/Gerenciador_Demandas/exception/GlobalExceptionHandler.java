@@ -67,7 +67,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Internal Server Error",
-                "Ocorreu um erro inesperado no servidor.",
+                ex.getMessage(),
                 request.getRequestURI()
         );
 
