@@ -2,7 +2,9 @@ package com.feras.Gerenciador_Demandas.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +15,7 @@ public class TaskResponseDTO {
     private String status;
     private String emailUsuario;
     private LocalDateTime criadoEm;
+    private List<String> tags;
 
     public TaskResponseDTO() {
     }
@@ -24,8 +27,7 @@ public class TaskResponseDTO {
         this.emailUsuario = emailUsuario;
     }
 
-    public TaskResponseDTO(String title, String description, String email) {
-    }
+
 
     @Override
     public String toString() {
@@ -34,6 +36,7 @@ public class TaskResponseDTO {
                 "\n descricao: " + descricao +
                 "\n status: " + status +
                 "\n email: " + emailUsuario +
-                "\n criado em:" + criadoEm;
+                "\n criado em:" + criadoEm +
+                "\n tags: " + tags;
     }
 }
