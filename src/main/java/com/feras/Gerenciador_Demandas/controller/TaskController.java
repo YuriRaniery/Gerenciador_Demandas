@@ -46,15 +46,19 @@ public class TaskController {
     @GetMapping("/listarId/{email}")
     public ResponseEntity<Page<TaskResponseDTO>> listarId(@PathVariable String email){
         Page<Tasks> listarId = taskService.listarId(email, Pageable.unpaged());
-        Page<TaskResponseDTO> dtos = listarId.map(t -> new TaskResponseDTO());
+
+        Page<TaskResponseDTO> dtos = listarId.map(t -> {
         TaskResponseDTO dto = new TaskResponseDTO();
-        dto.setId(listarId.getContent().get(0).getId());
-        dto.setTitulo(listarId.getContent().get(0).getTitle());
-        dto.setDescricao(listarId.getContent().get(0).getDescription());
-        dto.setStatus(listarId.getContent().get(0).getStatus().name());
-        dto.setEmailUsuario(listarId.getContent().get(0).getUser() != null ? listarId.getContent().get(0).getUser().getEmail() : null);
-        dto.setCriadoEm(listarId.getContent().get(0).getDate());
+        dto.setId(t.getId());
+        dto.setTitulo(t.getTitle());
+        dto.setDescricao(t.getDescription());
+        dto.setStatus(t.getStatus().name());
+        dto.setEmailUsuario(t.getUser() != null ? t.getUser().getEmail() : null);
+        dto.setCriadoEm(t.getDate());
+        return dto;});
+
         return ResponseEntity.ok().body(dtos);
+
     }
 
 
