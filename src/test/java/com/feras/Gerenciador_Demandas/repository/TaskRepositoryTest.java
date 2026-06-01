@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -76,18 +78,19 @@ class TaskRepositoryTest {
         em.flush();
 
         // ACT
-        List<Tasks> resultado = taskRepository.findByUserEmail("jose@gmail.com");
+        Page<Tasks> resultado = taskRepository.findByUserEmail("jose@gmail.com",Pageable.unpaged());
 
         // ASSERT
         assertThat(resultado).hasSize(1);
-        assertThat(resultado.get(0).getUser().getEmail()).isEqualTo("jose@gmail.com");
+        assertThat(resultado.getContent().getFirst().getTitle()).isEqualTo("Task Pendente");
+        //assertThat(resultado.get(0).getUser().getEmail()).isEqualTo("jose@gmail.com");
     }
 
     // ── Teste 3: findByUserEmail — usuário sem tasks ──────────────────────
     @Test
     void deveRetornarListaVaziaQuandoUsuarioNaoTemTasks() {
         // ACT — email existe mas não tem tasks
-        List<Tasks> resultado = taskRepository.findByUserEmail("jose@gmail.com");
+        Page<Tasks> resultado = taskRepository.findByUserEmail("jose@gmail.com",Pageable.unpaged());
 
         // ASSERT
         assertThat(resultado).isEmpty();

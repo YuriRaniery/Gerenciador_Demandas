@@ -29,6 +29,9 @@ public class TaskService {
     public Page<Tasks> listarTodos(Pageable pageable) {
         return tasksRepository.findAll(pageable);
     }
+    public Page<Tasks> listarId(String email,Pageable pageable) {
+        return tasksRepository.findByUserEmail(email, pageable);
+    }
     @Transactional
     public Tasks criar(String email, TaskRequestDTO req){
         Users user = userRepository.findByEmail(email)

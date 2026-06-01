@@ -17,7 +17,7 @@ public interface TaskRepository extends JpaRepository<Tasks, Long> {
     List<Tasks> findByStatus(TaskRole status);
 
     // Query method derivado — busca tasks pelo email do usuário
-    List<Tasks> findByUserEmail(String email);
+   Page<Tasks> findByUserEmail(String email,Pageable pageable);
 
     // Query JPQL customizada — busca tasks pelo título (contém, ignora maiúsculas)
     @Query("SELECT t FROM Tasks t WHERE LOWER(t.title) LIKE LOWER(CONCAT('%', :titulo, '%'))")
