@@ -7,11 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskRequestDTO {
-
 
     @validTitulo
     @NotBlank(message = "O titulo é obrigatório")
@@ -22,4 +23,5 @@ public class TaskRequestDTO {
     @Size(min = 10, max = 500, message = "A descrição deve conter entre 10 e 500 caracteres")
     private String description;
 
+    private List<String> tags;
 }
