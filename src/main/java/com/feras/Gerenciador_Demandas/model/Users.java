@@ -2,9 +2,11 @@ package com.feras.Gerenciador_Demandas.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class Users implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
     private List<Tasks> tasks;
